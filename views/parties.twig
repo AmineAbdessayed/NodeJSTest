@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Parties</title>
+</head>
+<body>
+    <h1>Parties</h1>
+    <ul>
+        {% for party in parties %}
+            <li>
+                <strong>Nom:</strong> {{ party.nom }}<br>
+                <strong>État:</strong> {{ party.etat }}<br>
+                <strong>Joueur 1:</strong> {{ party.joueur_1.pseudo }} (Score: {{ party.joueur_1.score }}, Santé: {{ party.joueur_1.sante }})<br>
+                <strong>Joueur 2:</strong> {{ party.joueur_2.pseudo }} (Score: {{ party.joueur_2.score }}, Santé: {{ party.joueur_2.sante }})
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

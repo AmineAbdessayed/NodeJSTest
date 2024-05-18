@@ -1,0 +1,89 @@
+<html>
+	<head>
+		<script src="/socket.io/socket.io.js"></script>
+	</head>
+	<body>
+		<center>
+			Nom Partie:<input id="nom" onkeyup="typing()" type="text"><br>
+			ID Joueur 1:<input id="id1" onkeyup="typing()" type="text"><br>
+			ID Joueur 2:<input id="id2" onkeyup="typing()" type="text"><br><br>
+			<input onclick="envoye()" type="submit">
+			<button onclick="afficher()">Afficher Stat</button>
+		</center>
+		<script>
+			const socket = io.connect();
+
+socket.on("x", (data) => {
+t = document.createElement("p")
+t.innerText = ("   is typing ...")
+document.body.append(t)
+})
+
+socket.on("msg", (data) => {
+console.log(JSON.stringify(data));
+s = document.createElement("p")
+s.innerHTML = ("<center>" + "Partie " + ":" + data.nom + "<br>" + "Id Joueur 1 " + ":" + data.id1 + "<br>" + "Id Joueur 2 " + ":" + data.id2 + "<br>" + "</center>")
+document.body.append(s)
+nomm = document.getElementById("nom")
+id1 = document.getElementById("id1")
+id2 = document.getElementById("id2")
+})
+
+
+socket.on("aff", (data) => {
+s = document.createElement("p")
+s.innerHTML = ("<center>" + "Stats: <br> Nom :" + nom.value + "<br> Nom joueur 1:" + data.j1.pseudo + "<br> Score:" + data.j1.score + "<br> Sante:" + data.j1.sante + "<br> Nom joueur 2 :" + data.j2.pseudo + "<br> Score:" + data.j2.score + "<br> Sante:" + data.j2.sante + "<br>" + "</center>");
+document.body.append(s)
+})
+
+
+function typing() { // socket.emit("x", nomuser)
+}
+function envoye() {
+
+// console.log("message:" + m.value)
+// console.log("nomuser" + nomuser)
+partie = {
+nom: nom.value,
+id1: id1.value,
+id2: id2.value
+}
+socket.emit("partie", partie)
+}
+
+function attaque() {
+
+// console.log("message:" + m.value)
+// console.log("nomuser" + nomuser)
+partie = {
+id1: id1.value,
+id2: id2.value
+}
+socket.emit("partie", partie)
+}
+
+function afficher() {
+
+// console.log("message:" + m.value)
+// console.log("nomuser" + nomuser)
+partie = {
+id1: id1.value,
+id2: id2.value
+}
+console.log(partie);
+socket.emit("afficher", partie)
+}
+
+function attaque2() {
+
+// console.log("message:" + m.value)
+// console.log("nomuser" + nomuser)
+partie = {
+id1: id2.value,
+id2: id1.value
+}
+socket.emit("partie", partie)
+}
+		</script>
+	</body>
+</html>
